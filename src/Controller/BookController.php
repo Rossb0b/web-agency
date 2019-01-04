@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Form\BookType;
+use App\Entity\Image;
+use App\Form\ImageType;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,11 +31,22 @@ class BookController extends AbstractController
     public function new(Request $request): Response
     {
         $book = new Book();
+        $image = new Image();
+        
         $form = $this->createForm(BookType::class, $book);
         $form->remove('client');
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form);
+            $file = $request->$form;
+
+            $name = $file->getSrc();
+            $image->setSrc($name);
+
+            $alt = $file->getText();
+            $image->setText($alt);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
