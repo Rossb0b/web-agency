@@ -19,6 +19,9 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
+        if($this->isGranted('ROLE_ADMIN'))
+            return $this->redirectToRoute('book_index');
+            
         $form = $this->createForm(RegistrationFormType::class);
         $form->handleRequest($request);
 

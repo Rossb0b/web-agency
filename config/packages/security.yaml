@@ -31,7 +31,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/fdsfsdfsdfsd, roles: ROLE_ADMIN }
+        - { path: ^/book, roles: ROLE_ADMIN }
+        - { path: ^/client, roles: ROLE_ADMIN }
 
     encoders:
         App\Entity\User:

@@ -30,6 +30,7 @@ class BookController extends AbstractController
     {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
+        $form->remove('client');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
