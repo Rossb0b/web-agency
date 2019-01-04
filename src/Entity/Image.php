@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -10,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Image
 {
     /**
+     * @Assert\Image(
+     *      maxWidth = 400,
+     *      maxHeight = 400
+     * )
+     * /
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -31,14 +38,14 @@ class Image
         return $this->id;
     }
 
-    public function getSrc(): ?string
+    public function getSrc()
     {
         return $this->src;
     }
 
-    public function setSrc(string $src): self
+    public function setSrc(File $file = null): self
     {
-        $this->src = $src;
+        $this->src = $file;
 
         return $this;
     }
