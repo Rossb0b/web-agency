@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -31,14 +32,14 @@ class Image
         return $this->id;
     }
 
-    public function getSrc(): ?string
+    public function getSrc()
     {
         return $this->src;
     }
 
-    public function setSrc(string $src): self
+    public function setSrc(string $file): self
     {
-        $this->src = $src;
+        $this->src = $file;
 
         return $this;
     }

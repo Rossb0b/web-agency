@@ -2,31 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Book;
-use App\Form\ImageType;
+use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class BookType extends AbstractType
+class ImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('author')
-            ->add('date')
-            ->add('resume')
-            ->add('category')
-            ->add('image', ImageType::class)
-            ->add('client')
+            ->add('src', FileType::class)
+            ->add('text')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Book::class,
+            'data_class' => Image::class,
         ]);
     }
 }
