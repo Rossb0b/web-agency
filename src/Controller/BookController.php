@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
  * @Route("/book")
@@ -95,9 +96,33 @@ class BookController extends AbstractController
     public function edit(Request $request, Book $book): Response
     {
         $form = $this->createForm(BookType::class, $book);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = new Image();
+
+            $file = $request->files->get('book')['image']['src'];
+            $name = $file->getClientOriginalName('src');
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $alt = $book->getImage()->getText();
+            
+            $image->setSrc($fileName);
+            $image->setText($alt);
+
+            $book->setImage($image);
+
+            try {
+                $file->move(
+                    $this->getParameter('Cover_directory'),
+                    $fileName
+                );
+            } catch(FileException $e) { 
+                // die($e); 
+            }
+
+            $this->getDoctrine()->getManager()->persist($book);
+            $this->getDoctrine()->getManager()->persist($image);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('book_index', ['id' => $book->getId()]);
