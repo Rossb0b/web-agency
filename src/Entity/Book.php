@@ -44,7 +44,6 @@ class Book
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Image")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $image;
 

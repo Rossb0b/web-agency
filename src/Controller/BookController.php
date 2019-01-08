@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 /**
  * @Route("/book")
@@ -40,15 +42,10 @@ class BookController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($request);
-
-            // $file stores the uploaded file
             $file = $request->files->get('book')['image']['src'];
-            dump($file);
 
             $name = $file->getClientOriginalName('src');
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            dump($fileName);
             
             $alt = $book->getImage()->getText();
             
@@ -56,8 +53,6 @@ class BookController extends AbstractController
             $image->setText($alt);
 
             $book->setImage($image);
-            dump($image);
-            dump($book);
 
             try {
                 $file->move(
@@ -93,36 +88,55 @@ class BookController extends AbstractController
     /**
      * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Book $book): Response
+    public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
     {
         $form = $this->createForm(BookType::class, $book);
 
+        $image_source = $bookRepository->find($book->getId())->getImage()->getSrc();
+        
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
             $image = new Image();
 
-            $file = $request->files->get('book')['image']['src'];
-            $name = $file->getClientOriginalName('src');
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            $alt = $book->getImage()->getText();
-            
-            $image->setSrc($fileName);
-            $image->setText($alt);
+            if($request->files->get('book')['image']['src'] !== null && $request->files->get('book')['image']['src'] !== 'no_change')
+            {
+                $file = $request->files->get('book')['image']['src'];
+                $name = $file->getClientOriginalName('src');
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $alt = $book->getImage()->getText();
+                
+                $image->setSrc($fileName);
+                $image->setText($alt);
 
-            $book->setImage($image);
+                $book->setImage($image);
 
-            try {
-                $file->move(
-                    $this->getParameter('Cover_directory'),
-                    $fileName
-                );
-            } catch(FileException $e) { 
-                // die($e); 
+
+                $fileSystem = new Filesystem();
+
+                try {
+                    $fileSystem->remove(array('symlink', $this->getParameter('Cover_directory'), $image_source));
+                } catch (IOExceptionInterface $exception) {
+                    echo "An error occurred while creating your directory at ".$exception->getPath();
+                }
+
+                try {
+                    $file->move(
+                        $this->getParameter('Cover_directory'),
+                        $fileName
+                    );
+                } catch(FileException $e) { 
+                    // die($e); 
+                }
             }
-
-            $this->getDoctrine()->getManager()->persist($book);
+            else {
+                $image = $book->getImage();
+                $image->setSrc($image_source);
+                $image->setText($book->getImage()->getText());
+                $book->setImage($image);
+            }
             $this->getDoctrine()->getManager()->persist($image);
+            $this->getDoctrine()->getManager()->persist($book);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('book_index', ['id' => $book->getId()]);
