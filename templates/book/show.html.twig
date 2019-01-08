@@ -27,6 +27,10 @@
                 <th>Resume</th>
                 <td>{{ book.resume }}</td>
             </tr>
+            <tr>
+                <th>Image</th>
+                <th><img src="{{ asset("uploads/Cover/#{book.image.src}") }}" alt="{{ book.image.text }}" width="50"></th>
+            </tr>
         </tbody>
     </table>
 

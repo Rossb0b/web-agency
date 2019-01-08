@@ -18,7 +18,7 @@ class BookType extends AbstractType
             ->add('date')
             ->add('resume')
             ->add('category')
-            ->add('image', ImageType::class)
+            ->add('image', ImageType::class, array('required' => false))
             ->add('client')
         ;
     }
