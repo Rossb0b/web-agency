@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Client;
+use App\Entity\Book;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,6 +20,15 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
+    public function getBookTitlesFromUser($client_id)
+    {
+        return $this->createQueryBuilder('c')
+                ->select('book.title, book.id')
+                ->from('App\Entity\Book', 'book')
+                ->where('book.client = c')
+                ->getQuery()
+                ->getResult();
+    }
     // /**
     //  * @return Client[] Returns an array of Client objects
     //  */
