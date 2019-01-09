@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use App\Repository\ClientRepository;
 
 /**
  * @Route("/book")
@@ -88,7 +89,7 @@ class BookController extends AbstractController
     /**
      * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
+    public function edit(Request $request, Book $book, BookRepository $bookRepository, ClientRepository $clientRepository): Response
     {
         $form = $this->createForm(BookType::class, $book);
 
@@ -135,16 +136,30 @@ class BookController extends AbstractController
                 $image->setText($book->getImage()->getText());
                 $book->setImage($image);
             }
+
+            if($request->request->get('client'))
+            {
+                $client = $clientRepository->find($request->request->get('client'));
+                $book->setClient($client);
+            }
+
+            if($request->request->get('restit') === 'restit')
+            {
+                $book->setClient(null);
+            }
+
             $this->getDoctrine()->getManager()->persist($image);
             $this->getDoctrine()->getManager()->persist($book);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('book_index', ['id' => $book->getId()]);
         }
-
+        $clients = $clientRepository->findAll();
+        // dump($clients);die;
         return $this->render('book/edit.html.twig', [
             'book' => $book,
             'form' => $form->createView(),
+            'clients' => $clients,
         ]);
     }
 

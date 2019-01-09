@@ -29,11 +29,6 @@ class Client
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=8)
-     */
-    private $token;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="client")
      */
     private $books;
@@ -68,18 +63,6 @@ class Client
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(string $token): self
-    {
-        $this->token = $token;
 
         return $this;
     }

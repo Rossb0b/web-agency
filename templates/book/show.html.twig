@@ -31,6 +31,15 @@
                 <th>Image</th>
                 <th><img src="{{ asset("uploads/Cover/#{book.image.src}") }}" alt="{{ book.image.text }}" width="50"></th>
             </tr>
+            {% if book.client is same as(null) %}
+            <tr>
+                <th>Ce livre n'est pas emprunté</th>
+            </tr>
+            {% else %}
+            <tr>
+                <th>Ce livre est emprunté par {{ book.client.firstname }}</th>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 
