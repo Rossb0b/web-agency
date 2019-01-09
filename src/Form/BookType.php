@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Book;
 use App\Form\ImageType;
+use App\Form\ClientType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,6 @@ class BookType extends AbstractType
             ->add('resume')
             ->add('category')
             ->add('image', ImageType::class, array('required' => false))
-            ->add('client')
         ;
     }
 

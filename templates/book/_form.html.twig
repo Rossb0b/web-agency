@@ -1,4 +1,19 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
+    {% if book.client is null %}
+        {% if clients is null %}
+            <p>Aucun client trouvé.</p>
+        {% else %}
+            <select name="client">
+                {% for client in clients %}
+                    <option value="{{ client.id }}">{{ client.firstname | upper }} {{ client.lastname | upper }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    {% else %}
+        <!-- FIXME: -->
+        <input type="checkbox" value="restit" name="restit">
+    {% endif %}
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -19,12 +19,18 @@
                 <th>Lastname</th>
                 <td>{{ client.lastname }}</td>
             </tr>
-            <tr>
-                <th>Token</th>
-                <td>{{ client.token }}</td>
-            </tr>
         </tbody>
     </table>
+
+    {% if books %}
+    <h2>Livres empruntés:</h2>
+    <ul>
+        {% for book in books %}
+            <li><a href="{{ path('book_show', {'id': book.id}) }}">{{ book.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
 
     <a href="{{ path('client_index') }}">back to list</a>
 
