@@ -44,9 +44,25 @@ class BookController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $request->files->get('book')['image']['src'];
-
-            $name = $file->getClientOriginalName('src');
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            dump($request->files->get('book')['image']['src']);
+            if($file !== null)
+            {
+                $name = $file->getClientOriginalName('src');
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                
+                try {
+                    $file->move(
+                        $this->getParameter('Cover_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+            }
+            else
+            {
+                $fileName = '5ae4acdebaada08ac8bb8c02f8de9c9b.jpeg';
+            }
             
             $alt = $book->getImage()->getText();
             
@@ -54,15 +70,6 @@ class BookController extends AbstractController
             $image->setText($alt);
 
             $book->setImage($image);
-
-            try {
-                $file->move(
-                    $this->getParameter('Cover_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($image);
@@ -72,8 +79,11 @@ class BookController extends AbstractController
             return $this->redirectToRoute('book_index');
         }
 
+        $returnButtonCheck = true;
+
         return $this->render('book/new.html.twig', [
             'book' => $book,
+            'returnButtonCheck' => $returnButtonCheck,
             'form' => $form->createView(),
         ]);
     }
