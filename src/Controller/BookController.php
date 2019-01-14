@@ -155,7 +155,7 @@ class BookController extends AbstractController
                 $book->setClient($client);
             }
 
-            if($request->request->get('restit') === 'restit')
+            if($request->request->get('returnBook') === 'restit')
             {
                 $book->setClient(null);
             }
@@ -167,10 +167,13 @@ class BookController extends AbstractController
             return $this->redirectToRoute('book_index', ['id' => $book->getId()]);
         }
         $clients = $clientRepository->findAll();
-        // dump($clients);die;
+        
+        $returnButtonCheck = true;
+
         return $this->render('book/edit.html.twig', [
             'book' => $book,
             'form' => $form->createView(),
+            'returnButtonCheck' => $returnButtonCheck,
             'clients' => $clients,
         ]);
     }

@@ -33,21 +33,28 @@
     </div>
     
     <div class="row">
-        <div class="col-md-3 mx-auto">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
             {{ form_label(form.image.src)}}
             {{ form_widget(form.image.src, {'attr': {'class': 'mb-3'}}) }}
             {{ form_label(form.image.text, "Veuillez définir les informations sur l'image") }}
-            {{ form_widget(form.image.text, {'attr': {'class': 'mt-1'}}) }}
+            {{ form_widget(form.image.text, {'attr': {'class': 'mt-1 col-12'}}) }}
         </div>
     </div>
     
-    {{ form_widget(form) }}
+    {{ form_widget(form, {'attr': {'class': 'pt-3'}}) }}
     {% if clients is defined %}
         {% if book.client is null %}
             {% if clients is null %}
-                <p>Aucun client trouvé.</p>
-            {% else %}
-                <select name="client">
+            <div class="row">
+                <div class="col-md-3 mx-auto">
+                    <p class="text-center">Aucun client trouvé.</p>
+                </div>
+            </div>
+                {% else %}
+                <div class="col-md-8 col-lg-6 mx-auto">
+                    <p class="text-center">Définir un emprunteur ?</label>
+                    <select class="form-control" name="client">
+                </div>
                 {% for client in clients %}
                     <option value="{{ client.id }}">{{ client.firstname | upper }} {{ client.lastname | upper }}</option>
                 {% endfor %}
@@ -55,14 +62,17 @@
             {% endif %}
         {% else %}
             <!-- FIXME: -->
-            <input type="checkbox" value="restit" name="restit">
+            <div class="col-md-3 col-12 mx-auto">
+                <label for="returnBook">Cocher pour restituer le livre :</label>
+                <input type="checkbox" value="restit" name="returnBook">
+            </div>
         {% endif %}
     {% endif %}    
-
     <div class="row">
-        <div class="mx-auto col-2 col-md-2 mt-3">
-            <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        <div class="mx-auto col-3 col-md-1 mt-3"</div>
+            <button class="btn btn-primary" style="min-width:120px">{{ button_label|default('Enregistrer') }}</button>
         </div>
     </div>
 </div>
+
 {{ form_end(form) }}
