@@ -1,56 +1,56 @@
 {{ form_start(form) }}
-<div class="row mb-3 form-group">
+<div class="container">
+    <div class="row mb-3 form-group">
+        <div class="mx-auto col-md-4 col-lg-3">
+            {{ form_label(form.title, 'Titre du livre :') }}
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}})}}
+            {{ form_row(form.title) }}
+        </div>
+        <div class="mx-auto col-md-4 col-lg-3">
+            {{ form_label(form.author, 'Autheur :')}}
+            {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.author) }}
+        </div>
+        <div class="mx-auto col-md-4 col-lg-3">
+            {{ form_label(form.category, 'Genre du livre :')}}
+            {{ form_widget(form.category, {'attr': {'class': 'custom-select mr-sm-2'}}) }}
+        </div>
+    </div>
     
-    <div class="mx-auto col-md-3">
-        {{ form_label(form.title, 'Titre du livre :') }}
-        {{ form_widget(form.title, {'attr': {'class': 'form-control'}})}}
-        {{ form_row(form.title) }}
+    <div class="row mb-3">
+        <div class="mx-auto col-md-6">
+            {{ form_label(form.resume, 'Synopsis') }}
+            {{ form_widget(form.resume, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.resume) }}
+        </div>
     </div>
-    <div class="mx-auto col-md-3">
-        {{ form_label(form.author, 'Autheur :')}}
-        {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(form.author) }}
+    
+    <div class="row mb-3">
+        <div class="col-md-3 mx-auto">
+            {{ form_widget(form.date, {'attr': {'class': 'input-group date'}})}}
+            {{ form_row(form.date) }}
+        </div>
     </div>
-    <div class="mx-auto col-md-3">
-        {{ form_label(form.category, 'Genre du livre :')}}
-        {{ form_widget(form.category, {'attr': {'class': 'custom-select mr-sm-2'}}) }}
+    
+    <div class="row">
+        <div class="col-md-3 mx-auto">
+            {{ form_label(form.image.src)}}
+            {{ form_widget(form.image.src, {'attr': {'class': 'mb-3'}}) }}
+            {{ form_label(form.image.text, "Veuillez définir les informations sur l'image") }}
+            {{ form_widget(form.image.text, {'attr': {'class': 'mt-1'}}) }}
+        </div>
     </div>
-</div>
-
-<div class="row mb-3">
-    <div class="mx-auto col-md-3">
-        {{ form_label(form.resume, 'Synopsis') }}
-        {{ form_widget(form.resume, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(form.resume) }}
-    </div>
-</div>
-
-<div class="row mb-3">
-    <div class="col-md-3 mx-auto">
-        {{ form_widget(form.date, {'attr': {'class': 'input-group date'}})}}
-        {{ form_row(form.date) }}
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-3 mx-auto">
-        {{ form_label(form.image.src)}}
-        {{ form_widget(form.image.src, {'attr': {'class': 'mb-3'}}) }}
-        {{ form_label(form.image.text, "Veuillez définir les informations sur l'image") }}
-        {{ form_widget(form.image.text, {'attr': {'class': 'mt-1'}}) }}
-    </div>
-</div>
-
-{{ form_widget(form) }}
+    
+    {{ form_widget(form) }}
     {% if clients is defined %}
         {% if book.client is null %}
             {% if clients is null %}
                 <p>Aucun client trouvé.</p>
             {% else %}
                 <select name="client">
-                    {% for client in clients %}
-                        <option value="{{ client.id }}">{{ client.firstname | upper }} {{ client.lastname | upper }}</option>
-                    {% endfor %}
+                {% for client in clients %}
+                    <option value="{{ client.id }}">{{ client.firstname | upper }} {{ client.lastname | upper }}</option>
+                {% endfor %}
                 </select>
             {% endif %}
         {% else %}
@@ -58,9 +58,11 @@
             <input type="checkbox" value="restit" name="restit">
         {% endif %}
     {% endif %}    
-<div class="row">
-    <div class="mx-auto col-2 col-md-2 mt-3">
-        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+
+    <div class="row">
+        <div class="mx-auto col-2 col-md-2 mt-3">
+            <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        </div>
     </div>
 </div>
 {{ form_end(form) }}

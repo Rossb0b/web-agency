@@ -1,48 +1,50 @@
+{% set returnLink = path('book_index') %}
 {% extends 'base.html.twig' %}
-
 {% block title %}Book{% endblock %}
 
 {% block body %}
-    <h1>Book</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ book.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ book.title }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ book.author }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ book.date ? book.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Resume</th>
-                <td>{{ book.resume }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <th><img src="{{ asset("uploads/Cover/#{book.image.src}") }}" alt="{{ book.image.text }}" width="50"></th>
-            </tr>
-            {% if book.client is same as(null) %}
-            <tr>
-                <th>Ce livre n'est pas emprunté</th>
-            </tr>
-            {% else %}
-            <tr>
-                <th>Ce livre est emprunté par {{ book.client.firstname }}</th>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
 
+    <div class="container pt-3">
+
+        <h1 class="text-center">Présentation du livre</h1>
+
+        <div class="row pt-2">
+            <div class="col-12 col-md-7 pt-5 mx-auto">
+                <img src="{{ asset("uploads/Cover/#{book.image.src}") }}" alt="{{ book.image.text }}" style="max-width:500px; width:100%;">
+            </div>
+
+            <div class="col-12 col-md-5 pt-4">
+                <ul><h2 class="h3 text-center mb-4">Information sur le livre :</h2> 
+                    Titre<li class="ml-4 mb-3 text-primary">{{ book.title }}</li>
+                    Autheur<li class="ml-4 mb-3 text-success">{{ book.author }}</li>
+                    Date de création<li class="ml-4 mb-3">{{ book.date ? book.date|date('Y-m-d') : '' }}</li>
+                    {% if book.client is same as(null) %}
+                        Ce livre est-il emprunté ?<li class="ml-4 mb-3">Ce livre n'est pas emprunté.</li>   
+                    {% else %}
+                        Ce livre est-il emprunté ?<li class="ml-4 mb-3">Ce livre est emprunté par <a href="{{ path('client_show', {'id': book.client.id}) }}">{{ book.client.firstname }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="row pt-3">
+            <div class="col-8 mx-auto">
+                <h2 class="h3 text-center">Résumé du livre</h2>
+                <p class="text-center text-justify">
+                    {{ book.resume }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+<button type="button" class="btn btn-success edit-button">
+    <span style="color:white";>
+        <i class="fas fa-tools fa-lg"></i>
+    </span>    
+</button>
+    
+<br>
     <a href="{{ path('book_index') }}">back to list</a>
 
     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
