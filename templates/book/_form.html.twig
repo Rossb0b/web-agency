@@ -44,7 +44,7 @@
     {{ form_widget(form, {'attr': {'class': 'pt-3'}}) }}
     {% if clients is defined %}
         {% if book.client is null %}
-            {% if clients is null %}
+            {% if clients is empty %}
                 <div class="col-md-3 mx-auto">
                     <p class="text-center">Aucun client trouvé.</p>
                 </div>
@@ -65,8 +65,8 @@
             </div>
         {% endif %}
     {% endif %}    
-    <div class="row pt-3">
-        <div class="mx-auto col-3 col-md-1">
+    <div class="row mt-3 mb-2">
+        <div class="mx-auto col-4 col-md-2">
             <button class="btn btn-primary btn-form">{{ button_label|default('Enregistrer') }}</button>
         </div>
     </div>

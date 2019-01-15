@@ -18,9 +18,15 @@ class ClientController extends AbstractController
     /**
      * @Route("/", name="client_index", methods={"GET"})
      */
-    public function index(ClientRepository $clientRepository): Response
+    public function index(ClientRepository $clientRepository, Request $request): Response
     {
-        return $this->render('client/index.html.twig', ['clients' => $clientRepository->findAll()]);
+        $ref = $request->headers->get('referer');
+        $clients = $clientRepository->findAll();
+
+        return $this->render('client/index.html.twig', [
+            'clients' => $clients,
+            'refer' => $ref,
+            ]);
     }
 
     /**
@@ -40,19 +46,25 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('client_index');
         }
 
+        $ref = $request->headers->get('referer');
+
         return $this->render('client/new.html.twig', [
             'client' => $client,
             'form' => $form->createView(),
+            'refer' => $ref,
         ]);
     }
 
     /**
      * @Route("/{id}", name="client_show", methods={"GET"})
      */
-    public function show(Client $client, ClientRepository $clientRepository): Response
+    public function show(Client $client, ClientRepository $clientRepository, Request $request): Response
     {
         $books = $clientRepository->getBookTitlesFromUser($client->getId());
-        return $this->render('client/show.html.twig', ['client' => $client, 'books' => $books]);
+        
+        $ref = $request->headers->get('referer');
+
+        return $this->render('client/show.html.twig', ['client' => $client, 'books' => $books, 'refer' => $ref,]);
     }
 
     /**
@@ -69,10 +81,13 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('client_index', ['id' => $client->getId()]);
         }
         
+        $ref = $request->headers->get('referer');
+        
         return $this->render('client/edit.html.twig', [
             'form' => $form->createView(),
             'client' => $client,
-        ]);
+            'refer' => $ref,
+            ]);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Client;
 use App\Entity\Book;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,14 +21,22 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
+    public function getNumberOfBook($client_id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $req = $conn->prepare('SELECT COUNT(id) FROM book WHERE client_id = :id');
+        $req->bindValue('id', $client_id);
+        $req->execute();
+        return $req->fetch();
+    }
+
     public function getBookTitlesFromUser($client_id)
     {
-        return $this->createQueryBuilder('c')
-                ->select('book.title, book.id')
-                ->from('App\Entity\Book', 'book')
-                ->where('book.client = c')
-                ->getQuery()
-                ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+        $req = $conn->prepare('SELECT book.title, book.id FROM book WHERE client_id = :id');
+        $req->bindValue('id', $client_id);
+        $req->execute();    
+        return $req->fetchAll();        
     }
     // /**
     //  * @return Client[] Returns an array of Client objects

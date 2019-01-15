@@ -1,4 +1,27 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="container mt-3">
+        <div class="row form-group">
+            <div class="mx-auto col-md-4 col-lg-4 mt-3">
+                <p class="text-center">
+                    {{ form_label(form.firstname, 'Prénom du client :') }}
+                </p>
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}})}}
+                {{ form_row(form.firstname) }}
+            </div>
+
+            <div class="mx-auto col-md-4 col-lg-4 mt-3">
+                <p class="text-center">
+                    {{ form_label(form.lastname, 'Nom du client :') }}
+                </p>
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}})}}
+                {{ form_row(form.lastname) }}
+            </div>
+        </div>
+
+        <div class="row mt-4 mb-2">
+            <div class="col-4 col-md-2 mx-auto">
+                <button class="btn btn-primary btn-form">{{ button_label|default('Save') }}</button>
+            </div>
+        </div>
+    </div>
 {{ form_end(form) }}

@@ -25,9 +25,10 @@ class BookController extends AbstractController
     /**
      * @Route("/", name="book_index", methods={"GET"})
      */
-    public function index(BookRepository $bookRepository): Response
+    public function index(BookRepository $bookRepository, Request $request): Response
     {
-        return $this->render('book/index.html.twig', ['books' => $bookRepository->findAll()]);
+        $ref = $request->headers->get('referer');
+        return $this->render('book/index.html.twig', ['books' => $bookRepository->findAll(), 'refer' => $ref,]);
     }
 
     /**
@@ -79,23 +80,27 @@ class BookController extends AbstractController
             return $this->redirectToRoute('book_index');
         }
 
-        $returnButtonCheck = true;
+        $ref = $request->headers->get('referer');
 
         return $this->render('book/new.html.twig', [
             'book' => $book,
-            'returnButtonCheck' => $returnButtonCheck,
             'form' => $form->createView(),
+            'refer' => $ref,
         ]);
     }
 
     /**
      * @Route("/{id}", name="book_show", methods={"GET"})
      */
-    public function show(Book $book): Response
+    public function show(Book $book, Request $request): Response
     {
-        $returnButtonCheck = true;
 
-        return $this->render('book/show.html.twig', ['book' => $book, 'returnButtonCheck' => $returnButtonCheck]);
+        $ref = $request->headers->get('referer');
+
+        return $this->render('book/show.html.twig', [
+            'book' => $book,
+            'refer' => $ref,
+        ]);
     }
 
     /**
@@ -167,14 +172,14 @@ class BookController extends AbstractController
             return $this->redirectToRoute('book_index', ['id' => $book->getId()]);
         }
         $clients = $clientRepository->findAll();
-        
-        $returnButtonCheck = true;
+
+        $ref = $request->headers->get('referer');
 
         return $this->render('book/edit.html.twig', [
             'book' => $book,
             'form' => $form->createView(),
-            'returnButtonCheck' => $returnButtonCheck,
             'clients' => $clients,
+            'refer' => $ref
         ]);
     }
 
