@@ -3,38 +3,60 @@
 {% block title %}Client{% endblock %}
 
 {% block body %}
-    <h1>Client</h1>
+<div class="container">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ client.id }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ client.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ client.lastname }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1 class="text-center">Client</h1>
 
-    {% if books %}
-    <h2>Livres empruntés:</h2>
-    <ul>
-        {% for book in books %}
-            <li><a href="{{ path('book_show', {'id': book.id}) }}">{{ book.title }}</a></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    
+    <div class="row mt-4 mb-3">
+        <table class="table col-lg-8 mx-auto">
+            <tbody>
+                <tr>
+                    <th>Firstname</th>
+                    <td>{{ client.firstname }}</td>
+                </tr>
+                <tr>
+                    <th>Lastname</th>
+                    <td>{{ client.lastname }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('client_index') }}">back to list</a>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            {% if books is defined %}
+                <h2>Livres empruntés:</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+                {% if books is empty %}
+                    <p>Aucun livre emprunté</p>
+                {% else %}
+                    <ul>
+                        {% for book in books %}
+                            <li class="mt-2"><a href="{{ path('book_show', {'id': book.id}) }}">{{ book.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </div>        
+    </div>  
+</div>
 
-    <a href="{{ path('client_edit', {'id': client.id}) }}">edit</a>
 
-    {{ include('client/_delete_form.html.twig') }}
+<div class="wrapper wrapper-client">
+    <button type="button" class="btn btn-success" id="edit-button" onclick="initf('sidebar')" style="cursor: pointer;">
+        <span>
+            <i class="fas fa-tools fa-lg"></i>
+        </span>    
+    </button>
+
+    <nav id="sidebar" class="bg-white">
+        <ul class="list-unstyled components">
+            <li><a href="{{ path('client_edit', {'id': client.id}) }}"><button class="btn btn-success">Editer</button></a></li>
+            <li><button form="delete-client" class="btn btn-danger">Supprimer</button></li>
+        </ul>
+    </nav>
+</div>
 {% endblock %}

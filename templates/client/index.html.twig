@@ -3,35 +3,41 @@
 {% block title %}Client index{% endblock %}
 
 {% block body %}
-    <h1>Client index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for client in clients %}
-            <tr>
-                <td>{{ client.id }}</td>
-                <td>{{ client.firstname }}</td>
-                <td>{{ client.lastname }}</td>
-                <td>
-                    <a href="{{ path('client_show', {'id': client.id}) }}">show</a>
-                    <a href="{{ path('client_edit', {'id': client.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="container">
 
-    <a href="{{ path('client_new') }}">Create new</a>
+    <h1 class="text-center mt-3 mb-3">Liste des clients</h1>
+
+    <a href="{{ path('client_new') }}" class="btn btn-success btn-md" role="button" aria-pressed="true">Nouveau client</a>
+
+    <div class="row mt-4">
+        <table class="table table-bordered text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Livre emprunté</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr class="client-info">
+                    <td>{{ client.firstname }}</td>
+                    <td>{{ client.lastname }}</td>
+                    <td class="bookNumber">{{ client.books|length }}</td>  
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('client_show', {'id': client.id}) }}">show</a>
+                        <a class="btn btn-secondary" href="{{ path('client_edit', {'id': client.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

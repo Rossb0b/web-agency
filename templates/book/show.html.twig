@@ -1,4 +1,3 @@
-{% set returnLink = path('book_index') %}
 {% extends 'base.html.twig' %}
 {% block title %}Book{% endblock %}
 
@@ -15,7 +14,8 @@
             </div>
 
             <div class="col-12 col-md-5 pt-4">
-                <ul><h2 class="h3 text-center mb-4">Information sur le livre :</h2> 
+                <h2 class="h3 text-center mb-4">Information sur le livre :</h2> 
+                <ul>
                     Titre<li class="ml-4 mb-3 text-primary">{{ book.title }}</li>
                     Autheur<li class="ml-4 mb-3 text-success">{{ book.author }}</li>
                     Date de création<li class="ml-4 mb-3">{{ book.date ? book.date|date('Y-m-d') : '' }}</li>
@@ -38,7 +38,7 @@
         </div>
     </div>          
 
-<div class="wrapper">
+<div class="wrapper wrapper-book">
     <button type="button" class="btn btn-success" id="edit-button" onclick="initf('sidebar')" style="cursor: pointer;">
         <span>
             <i class="fas fa-tools fa-lg"></i>
