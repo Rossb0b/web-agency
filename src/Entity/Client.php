@@ -68,11 +68,6 @@ class Client
         return $this;
     }
 
-    public function getNbofbooks()
-    {
-        return count($this->getBooks());
-    }
-
     /**
      * @return Collection|Book[]
      */

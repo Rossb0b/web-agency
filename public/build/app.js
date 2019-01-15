@@ -51,13 +51,13 @@ $("td.bookNumber").each(function() {
   {
     $(this).closest('tr').addClass("table-info");
   }
-  if (borrowedBook >= 5)
-  {
-    $(this).closest('tr').addClass("table-warning");
-  }
-  if (borrowedBook >= 10)
+  else if (borrowedBook >= 10)
   {
     $(this).closest('tr').addClass("table-danger");
+  }
+  else if (borrowedBook >= 5)
+  {
+    $(this).closest('tr').addClass("table-warning");
   }
 });
 

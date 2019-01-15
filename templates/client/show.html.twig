@@ -33,6 +33,9 @@
                 {% if books is empty %}
                     <p>Aucun livre emprunté</p>
                 {% else %}
+                <p>
+                   Nombre de livre emprunté : {{ client.books|length }}
+                </p>
                     <ul>
                         {% for book in books %}
                             <li class="mt-2"><a href="{{ path('book_show', {'id': book.id}) }}">{{ book.title }}</a></li>
