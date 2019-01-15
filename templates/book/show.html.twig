@@ -5,7 +5,7 @@
 {% block body %}
 
 
-    <div class="container pt-3">
+    <div class="container mt-3">
 
         <h1 class="text-center">Présentation du livre</h1>
 
@@ -36,18 +36,20 @@
                 </p>
             </div>
         </div>
-    </div>
+    </div>          
 
-<button type="button" class="btn btn-success edit-button">
-    <span style="color:white";>
-        <i class="fas fa-tools fa-lg"></i>
-    </span>    
-</button>
-    
-<br>
-    <a href="{{ path('book_index') }}">back to list</a>
+<div class="wrapper">
+    <button type="button" class="btn btn-success" id="edit-button" onclick="initf('sidebar')" style="cursor: pointer;">
+        <span>
+            <i class="fas fa-tools fa-lg"></i>
+        </span>    
+    </button>
 
-    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
-
-    {{ include('book/_delete_form.html.twig') }}
+    <nav id="sidebar" class="bg-white">
+        <ul class="list-unstyled components">
+            <li><a href="{{ path('book_edit', {'id': book.id}) }}"><button class="btn btn-success">Editer</button></a></li>
+            <li><button form="delete-book" class="btn btn-danger">Supprimer</button></li>
+        </ul>
+    </nav>
+</div>
 {% endblock %}
