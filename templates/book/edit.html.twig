@@ -12,6 +12,12 @@
 </div>
     {{ include('book/_form.html.twig', {'button_label': 'Update'}) }}    
     
-    {{ include('book/_deleteForEditForm_form.html.twig') }}
+<div class="container">
+    <div class="row">
+        <div class="mx-auto col-3 col-md-1">
+            <button form="delete-book" class="btn btn-danger btn-form">Supprimer</button>
+        </div>
+    </div>
+</div>    
 
 {% endblock %}

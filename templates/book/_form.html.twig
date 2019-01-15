@@ -45,34 +45,33 @@
     {% if clients is defined %}
         {% if book.client is null %}
             {% if clients is null %}
-            <div class="row">
                 <div class="col-md-3 mx-auto">
                     <p class="text-center">Aucun client trouvé.</p>
                 </div>
-            </div>
-                {% else %}
+            {% else %}
                 <div class="col-md-8 col-lg-6 mx-auto">
-                    <p class="text-center">Définir un emprunteur ?</label>
+                    <p class="text-center">Définir un emprunteur ?</p>
                     <select class="form-control" name="client">
+                        {% for client in clients %}
+                          <option value="{{ client.id }}">{{ client.firstname | upper }} {{ client.lastname | upper }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                {% for client in clients %}
-                    <option value="{{ client.id }}">{{ client.firstname | upper }} {{ client.lastname | upper }}</option>
-                {% endfor %}
-                </select>
             {% endif %}
         {% else %}
-            <!-- FIXME: -->
             <div class="col-md-3 col-12 mx-auto">
                 <label for="returnBook">Cocher pour restituer le livre :</label>
                 <input type="checkbox" value="restit" name="returnBook">
             </div>
         {% endif %}
     {% endif %}    
-    <div class="row">
-        <div class="mx-auto col-3 col-md-1 mt-3"</div>
-            <button class="btn btn-primary" style="min-width:120px">{{ button_label|default('Enregistrer') }}</button>
+    <div class="row pt-3">
+        <div class="mx-auto col-3 col-md-1">
+            <button class="btn btn-primary btn-form">{{ button_label|default('Enregistrer') }}</button>
         </div>
     </div>
 </div>
+
+
 
 {{ form_end(form) }}
