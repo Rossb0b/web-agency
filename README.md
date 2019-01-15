@@ -11,11 +11,11 @@ These instructions will get you a copy of the project up and running on your loc
 2. Go to your project repository
 3. Create your feature branch: git checkout -b my-new-feature
 4. Run those commands : 
-  1. "composer require symfony/web-server-bundle --dev" (Install the bundle from symfony)
-  2. "php bin/console server:run" (Run your server and allow you to access the application in your browser at             http://localhost:8000)
-3. Commit your changes: git commit -am 'added some feature'
-4. Push to the branch: git push origin my-new-feature
-5. Submit a pull request :)
+  * **"composer require symfony/web-server-bundle --dev" (Install the bundle from symfony)**
+  * **"php bin/console server:run" (Run your server and allow you to access the application in your browser at             http://localhost:8000)**
+5. Commit your changes: git commit -am 'added some feature'
+6. Push to the branch: git push origin my-new-feature
+7. Submit a pull request :)
 
 ### Prerequisites
 
