@@ -47,17 +47,17 @@ $("td.bookNumber").each(function() {
   let val = $.text([this]);
   let borrowedBook = 0;
   borrowedBook = parseInt(val);
-  if (borrowedBook > 0)
-  {
-    $(this).closest('tr').addClass("table-info");
-  }
-  if (borrowedBook >= 5)
-  {
-    $(this).closest('tr').addClass("table-warning");
-  }
   if (borrowedBook >= 10)
   {
     $(this).closest('tr').addClass("table-danger");
+  }
+  else if (borrowedBook >= 5)
+  {
+    $(this).closest('tr').addClass("table-warning");
+  }
+  else if (borrowedBook > 0)
+  {
+    $(this).closest('tr').addClass("table-info");
   }
 });
 
