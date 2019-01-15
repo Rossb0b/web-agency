@@ -1,3 +1,5 @@
+
+/* Style for cards in books-index */
 body .card {
   max-width:250px;
 }
@@ -23,6 +25,9 @@ img {
 button span {
   color:white;
 }
+
+
+/* Style for toolbox menu, one that appear on clients views, the other and books views*/
 
 .wrapper-client{
   position:absolute;
@@ -108,4 +113,8 @@ button a:hover {
   min-width:120px;
 }
 
-
+.table_wrapper{
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
