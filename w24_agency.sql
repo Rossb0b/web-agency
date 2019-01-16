@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 15 Janvier 2019 à 22:05
+-- Généré le :  Mer 16 Janvier 2019 à 09:53
 -- Version du serveur :  5.7.24-0ubuntu0.16.04.1
 -- Version de PHP :  7.1.25-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -31,7 +31,7 @@ CREATE TABLE `book` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
-  `resume` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `resume` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int(11) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
   `client_id` int(11) DEFAULT NULL
@@ -42,13 +42,13 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`id`, `title`, `author`, `date`, `resume`, `category_id`, `image_id`, `client_id`) VALUES
-(6, 'test2', 'test2', '2014-01-01', 'test2', 1, 8, 5),
-(7, 'tedf', 'dsqfds', '2014-01-01', 'd', 1, 9, 3),
-(8, 'imagetest', 'tedsqf', '2014-01-01', 'f', 1, 10, 5),
-(9, 'dqsd', 'dsqd', '2014-01-01', 'qsd', 1, 11, 5),
-(10, 'dqsdsqd', 'dqsdsq', '2014-01-01', 'dqsdsqdsqddsq', 1, 12, 5),
-(11, 'Le Seigneur des anneaux - Tome 1 : La communauté de l\'anneau', 'Tolkien', '2014-07-19', 'Dans les vertes prairies de la Comté, les Hobbits, ou Semi-hommes, vivaient en paix... Jusqu\'au jour fatal où l\'un d\'entre eux, au cours de ses voyages, entra en possession de l\'Anneau Unique aux immenses pouvoirs.', 6, 14, 5),
-(12, 'Beren et Luthien', 'Tolkien', '2014-01-01', 'Découvrez l’histoire d’amour qui a donné naissance au monde du Seigneur des Anneaux et du Hobbit ! Des milliers d’années avant Aragorn et Arwen, un homme et une Elfe tentent de vivre un amour interdit et..', 6, 18, NULL);
+(6, 'test2', 'test2', '2014-01-01', 'test2', 1, 8, 7),
+(7, 'tedf', 'dsqfds', '2014-01-01', 'd', 1, 9, 7),
+(8, 'imagetest', 'tedsqf', '2014-01-01', 'f', 1, 10, 7),
+(9, 'dqsd', 'dsqd', '2014-01-01', 'qsd', 1, 11, 7),
+(10, 'dqsdsqd', 'dqsdsq', '2014-01-01', 'dqsdsqdsqddsq', 1, 12, 7),
+(11, 'Le Seigneur des anneaux - Tome 1 : La communauté de l\'anneau', 'Tolkien', '2014-07-19', 'Dans les vertes prairies de la Comté, les Hobbits, ou Semi-hommes, vivaient en paix... Jusqu\'au jour fatal où l\'un d\'entre eux, au cours de ses voyages, entra en possession de l\'Anneau Unique aux immenses pouvoirs.', 6, 14, NULL),
+(12, 'Beren et Luthien', 'Tolkien', '2014-01-01', 'Découvrez l’histoire d’amour qui a donné naissance au monde du Seigneur des Anneaux et du Hobbit ! Des milliers d’années avant Aragorn et Arwen, un homme et une Elfe tentent de vivre un amour interdit et..', 6, 18, 6);
 
 -- --------------------------------------------------------
 
@@ -81,16 +81,19 @@ INSERT INTO `category` (`id`, `name`) VALUES
 CREATE TABLE `client` (
   `id` int(11) NOT NULL,
   `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identifiant` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Contenu de la table `client`
 --
 
-INSERT INTO `client` (`id`, `firstname`, `lastname`) VALUES
-(3, 'Nicolas', 'fdsdfs'),
-(5, 'test', 'test');
+INSERT INTO `client` (`id`, `firstname`, `lastname`, `identifiant`) VALUES
+(6, 'Nicolas', 'Hallaert', '406fe4c4'),
+(7, 'Pierre', 'Dumoulin', 'de11eb67'),
+(8, 'Allo', 'Lemonde', '6c4b0993'),
+(9, 'Nick', 'Ola', '2a4aca8e');
 
 -- --------------------------------------------------------
 
@@ -142,7 +145,8 @@ INSERT INTO `migration_versions` (`version`) VALUES
 ('20190108124539'),
 ('20190108124640'),
 ('20190108143107'),
-('20190115105519');
+('20190115105519'),
+('20190116081141');
 
 -- --------------------------------------------------------
 
@@ -224,7 +228,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pour la table `image`
 --
