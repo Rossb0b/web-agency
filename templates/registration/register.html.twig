@@ -13,24 +13,24 @@
 
     {{ form_start(registrationForm) }}
     <div class="row form-group">
-        <div class="col-5 mx-auto">
+        <div class="col-lg-5 col-12 mx-auto">
             {{ form_label(registrationForm.email, 'Indiquez votre e-mail :') }}
             {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}} )}}
         </div>
-        <div class="col-5 mx-auto">
+        <div class="col-12 col-lg-5 mx-auto">
             {{ form_label(registrationForm.plainPassword, 'Indiquez votre motre de passe :') }}
             {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
         </div>
     </div>
 
     <div class="row">
-        <div class="col-4 mx-auto">
+        <div class="col-12 col-lg-4 mx-auto">
             {{ form_label(registrationForm.nickname, 'Indiquez votre prénom :') }}
             {{ form_widget(registrationForm.nickname, {'attr': {'class': 'form-control'}}) }}
         </div>
     </div>
     
-    <div class="row">
+    <div class="row pt-3">
         <div class="col-2 offset-1">
             <button class="btn btn-primary">Register</button>
         </div>
