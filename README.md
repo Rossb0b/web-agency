@@ -32,7 +32,7 @@ No specific details on our code of conduct, and process for submitting pull requ
 
 ## Authors
 
-* **Nicolas Hallaert**
+* **Pierre Demailly**
 
 ## License
 
