@@ -11,12 +11,16 @@
         <table class="table col-lg-8 mx-auto">
             <tbody>
                 <tr>
-                    <th>Firstname</th>
+                    <th>Prénom</th>
                     <td>{{ client.firstname }}</td>
                 </tr>
                 <tr>
-                    <th>Lastname</th>
+                    <th>Nom</th>
                     <td>{{ client.lastname }}</td>
+                </tr>
+                <tr>
+                    <th>Identifiant</th>
+                    <td>{{ client.identifiant }}</td>
                 </tr>
             </tbody>
         </table>
@@ -47,6 +51,7 @@
     </div>  
 </div>
 
+{{ include('client/_delete_form.html.twig') }}
 
 <div class="wrapper wrapper-client">
     <button type="button" class="btn btn-success" id="edit-button" onclick="initf('sidebar')" style="cursor: pointer;">
@@ -58,7 +63,7 @@
     <nav id="sidebar" class="bg-white">
         <ul class="list-unstyled components">
             <li><a href="{{ path('client_edit', {'id': client.id}) }}"><button class="btn btn-success">Editer</button></a></li>
-            <li><button form="delete-client" class="btn btn-danger">Supprimer</button></li>
+            <li><button type="submit" value="submit" form="delete-client" class="btn btn-danger">Supprimer</button></li>
         </ul>
     </nav>
 </div>
