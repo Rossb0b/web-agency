@@ -15,8 +15,9 @@
             <table class="table table-bordered text-center">
                 <thead class="thead-light">
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Identifiant</th>
                         <th>Livre emprunté</th>
                         <th>actions</th>
                     </tr>
@@ -26,6 +27,7 @@
                     <tr class="client-info">
                         <td>{{ client.firstname }}</td>
                         <td>{{ client.lastname }}</td>
+                        <td>{{ client.identifiant }}</td>
                         <td class="bookNumber">{{ client.books|length }}</td>  
                         <td>
                             <a class="btn btn-primary" href="{{ path('client_show', {'id': client.id}) }}">show</a>
