@@ -47,7 +47,7 @@ $("td.bookNumber").each(function() {
   let val = $.text([this]);
   let borrowedBook = 0;
   borrowedBook = parseInt(val);
-  if (borrowedBook >= 10)
+  if (borrowedBook >= 8)
   {
     $(this).closest('tr').addClass("table-danger");
   }
