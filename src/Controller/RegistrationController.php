@@ -52,8 +52,11 @@ class RegistrationController extends AbstractController
             );
         }
 
+        $ref = $request->headers->get('referer');
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'refer' => $ref,
         ]);
     }
 }
