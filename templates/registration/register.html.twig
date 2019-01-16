@@ -15,13 +15,18 @@
     <div class="row form-group">
         <div class="col-5 mx-auto">
             {{ form_label(registrationForm.email, 'Indiquez votre e-mail :') }}
-            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}})}}
-            {{ form_row(registrationForm.email) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}} )}}
         </div>
         <div class="col-5 mx-auto">
             {{ form_label(registrationForm.plainPassword, 'Indiquez votre motre de passe :') }}
             {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
-            {{ form_row(registrationForm.plainPassword) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4 mx-auto">
+            {{ form_label(registrationForm.nickname, 'Indiquez votre prénom :') }}
+            {{ form_widget(registrationForm.nickname, {'attr': {'class': 'form-control'}}) }}
         </div>
     </div>
     
