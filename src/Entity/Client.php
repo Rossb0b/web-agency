@@ -34,6 +34,11 @@ class Client
      */
     private $books;
 
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
+    private $identifiant;
+
     public function __construct()
     {
         $this->books = new ArrayCollection();
@@ -95,6 +100,18 @@ class Client
                 $book->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIdentifiant(): ?string
+    {
+        return $this->identifiant;
+    }
+
+    public function setIdentifiant(string $identifiant): self
+    {
+        $this->identifiant = $identifiant;
 
         return $this;
     }
