@@ -19,6 +19,7 @@ body .card-body a {
 
 img {
   max-width:250px;
+  min-height:260px;
   max-height:300px;
 }
 
